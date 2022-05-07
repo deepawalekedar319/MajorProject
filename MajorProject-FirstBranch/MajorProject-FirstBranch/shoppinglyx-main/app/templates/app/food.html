@@ -1,0 +1,42 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Trains{% endblock title %}
+{% block main-content %} 
+<div class="container my-5">
+    <div class="row">
+        <div class="col-sm-3">
+                <div class="list-group">
+                  <a href="{%url 'doll' %}" class="list-group-item list-group-item-action" aria-current="true">Food Items</a>
+                  <a href="{% url 'dolldata' 'Barbie' %}" class="list-group-item list-group-item-action" aria-current="true">Tiffins</a>
+                  <a href="{% url 'dolldata' 'SCOOBA' %}" class="list-group-item list-group-item-action">Meals</a>
+                  <a href="{% url 'dolldata' 'below' %}" class="list-group-item list-group-item-action">Desserts</a>
+                  <a href="{% url 'dolldata' 'above' %}" class="list-group-item list-group-item-action">Chinese</a>
+                  <a href="{% url 'dolldata' 'above' %}" class="list-group-item list-group-item-action">Pizza</a>
+                  <a href="{% url 'dolldata' 'above' %}" class="list-group-item list-group-item-action">Biryani</a>
+                  <a href="{% url 'dolldata' 'above' %}" class="list-group-item list-group-item-action">BBQ</a>
+                  <a href="{% url 'dolldata' 'above' %}" class="list-group-item list-group-item-action">Fries</a>
+                  <a href="{% url 'dolldata' 'above' %}" class="list-group-item list-group-item-action">Cakes</a>
+                  <a href="{% url 'dolldata' 'above' %}" class="list-group-item list-group-item-action">Juice</a>
+                  <a href="{% url 'dolldata' 'above' %}" class="list-group-item list-group-item-action">Soft Drinks</a>
+                  <a href="{% url 'dolldata' 'above' %}" class="list-group-item list-group-item-action">Coffee</a>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="row">
+                {% for product in allCycles %}
+                <div class="col-sm-6 text-center mb-4">
+                    <a href="{%url 'product-detail' product.id %}" class="btn">
+                        <div class="item">
+                            <img src="{{product.product_image.url}}" alt=""height="300" width="" class="">
+                            <div class="fw-bold">{{product.title}}</div>
+                            <div class="fw-bold">Rs.{{product.discounted_price}}
+                            <small class="fw-light text-decoration-line-through">{{product.selling_price}}</small></div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock main-content %}
