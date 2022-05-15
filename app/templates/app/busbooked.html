@@ -1,0 +1,55 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Cart{% endblock title %}
+{% block main-content %}
+<div class="container my-5">
+ <div class="row">
+  <h1 class="text-center mb-5">Train Booked</h1>
+  <div class="col-sm-8">
+  <div class="card">
+   <div class="card-body">
+    <h3>Train Details</h3>
+    <hr>  
+    {%for carts in trains%}
+    <div class="row">
+     <div class="col-sm-3 text-center align-self-center"><img src="{{carts.services.image.url}}" alt=""  class="img-fluid img-thumbnail shadow-sm" height="150" width="150"> </div>
+     <div class="col-sm-9">
+      <div>
+       <h5>{{cart.services.name}}</h5>
+       <p class="mb-2 text-muted small">Train Name : <span class="fw-bold">{{carts.services.trainName}}</span></p>
+       <p class="mb-2 text-muted small">Train Number : <span class="fw-bold">{{carts.services.trainNumber}} </span></p>
+       <p class="mb-2 text-muted small">Seat Number : <span class="fw-bold">{{carts.id}} </span></p>
+       <p class="mb-2 text-muted small">Train Starting Point  : <span class="fw-bold">{{carts.services.fromCity}}</span></p>
+       <p class="mb-2 text-muted small">Train Destination Point : <span class="fw-bold">{{carts.services.toCity}}</span></p>
+       <p class="mb-2 text-muted small">Train Available On : <span class="fw-bold">{{carts.services.availableOn}}</span></p>
+       <p class="mb-2 text-muted small">Train Starts At : <span class="fw-bold">{{carts.services.arrivalTime}}</span></p>
+       <p class="mb-2 text-muted small">Train Reaches At : <span class="fw-bold">{{carts.services.destinationTime}}</span></p>
+       <p class="mb-2 text-muted small">Total Distance : <span class="fw-bold">{{carts.services.distance}} kms</span></p>
+       <p class="mb-2 text-muted small">Amount : <span class="fw-bold">Rs: {{amount}}/.</span></p>
+       <a href="/deleteBus/{{carts.id}}" class="btn btn-warning" style="float:right;">Cancel Booking</a></p>
+               
+       
+      </div>
+     </div>
+    </div>
+    {%endfor%}
+    <hr class="text-muted">
+    
+   </div>
+   </div>
+  </div>
+ </div>
+</div>
+<div class="container">
+ <div class="row">
+  <div class="col-sm-8">
+   <div class="card">
+    <div class="card-body">
+      <h5 class="mb-4">We accept</h5>
+      <img src="{% static 'app/images/payment.png' %}" alt="" class="img-fluid">
+    </div>
+  </div>
+  </div>
+ </div>
+</div>
+{% endblock main-content %}

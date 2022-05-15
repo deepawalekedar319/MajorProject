@@ -1,0 +1,81 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Buy Now{% endblock title %}
+{% block main-content %}
+<div class="container">
+ <div class="row mt-5">
+  <div class="col-sm-6">
+    <h4>Order Summary</h4>
+    <hr>
+    {%for item in cart_items%}
+      <div class="card mb-2">
+        <div class="card-body">
+          <h5>Product: {{item.product.title}}</h5>
+          <p>Quantity: {{item.quantity}}</p>
+          <p class="fw-bold">Price: {{item.total_cost}}</p>
+        </div>
+      </div>
+      {%endfor%}
+      <p class="fw-bold ">Total Cost + Rs. 70 = {{totalamount}}</p>
+    <small>Term and Condition: Company shall at times and at their sole discretion reserve the right to disable any user identification code or password if any User has failed to comply with any of the provisions of this Agreement. Company shall have all the rights to take necessary action and claim damages that may occur due to User's involvement/participation in any way either on their own or through group/s of people, intentionally or unintentionally in hacking.</small>
+  </div>
+  <div class="col-sm-4 offset-sm-1">
+    <h4>Select Shipping Address</h4>
+    <hr>
+    <form action="/paymentdone" id="myform">
+      {%for ad in add%}
+      <div class="card">
+        <div class="card-body">
+        <h5>{{ad.name}}</h5>
+        <p>{{ad.locality}},{{ad.city}},{{ad.state}} - {{ad.zipcode}}</p>
+        </div>
+      </div>
+        <div class="form-check mt-2 mb-5">
+          <input class="form-check-input" type="radio" value="{{ad.id}}" name="custid" id="custadd{{forloop.counter}}">
+          <label class="form-check-label fw-bold" for="">
+            Address: {{forloop.counter}} </label>
+        </div>
+        {%endfor%}
+        <div class="text-end">
+          <!-- <button type="submit" class="btn btn-warning mt-3 px-5 fw-bold">Continue</button> -->
+          <div id="paypal-button-container"></div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock main-content %}
+{% block payment-gateway %}
+<script src="https://www.paypal.com/sdk/js?client-id=AdU-CBVbE8kv6WNSYuuogeCfXUGowKXcwqKn17masTVPM9DLpccXY8Mta1o6Yk7dMjYdg_tDaDNJ4_Kq&currency=USD"></script>
+
+<script>
+    // Render the PayPal button into #paypal-button-container
+    paypal.Buttons({
+
+        // Set up the transaction
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: '{{totalamount}}'
+                    }
+                }]
+            });
+        },
+
+        // Finalize the transaction
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(orderData) {
+                // Successful capture! For demo purposes:
+                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                var transaction = orderData.purchase_units[0].payments.captures[0];
+                alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+                document.getElementById("myform").submit();
+                
+            });
+        }
+
+
+    }).render('#paypal-button-container');
+</script>
+{% endblock payment-gateway %}

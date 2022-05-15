@@ -1,0 +1,34 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}ACs{% endblock title %}
+{% block main-content %} 
+<div class="container my-5">
+    <div class="row">
+        <div class="col-sm-3">
+                <div class="list-group">
+                  <a href="{%url 'AC' %}" class="list-group-item list-group-item-action" aria-current="true">All ACs</a>
+                  <a href="{% url 'ACdata' 'CROMA' %}" class="list-group-item list-group-item-action" aria-current="true">CROMA</a>
+                  <a href="{% url 'ACdata' 'Lloyd' %}" class="list-group-item list-group-item-action">Lloyd</a>
+                  <a href="{% url 'ACdata' 'below' %}" class="list-group-item list-group-item-action">Below 1000</a>
+                  <a href="{% url 'ACdata' 'above' %}" class="list-group-item list-group-item-action">Above 1000</a>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="row">
+                {% for product in allCycles %}
+                <div class="col-sm-6 text-center mb-4">
+                    <a href="{%url 'product-detail' product.id %}" class="btn">
+                        <div class="item">
+                            <img src="{{product.product_image.url}}" alt=""height="100" width="350" class=""> <br>
+                            <div class="fw-bold">{{product.title}}</div>
+                            <div class="fw-bold">Rs.{{product.discounted_price}}
+                            <small class="fw-light text-decoration-line-through">{{product.selling_price}}</small></div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock main-content %}

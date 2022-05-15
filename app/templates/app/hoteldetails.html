@@ -1,0 +1,72 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Services Detail{% endblock title %}
+{% block main-content %}
+<style>
+    input[type=text], select,input[type=date], textarea {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.servicesData {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+</style>
+<div class="container my-5">
+ <div class="row">
+  <div class="col-sm-6 text-center align-self-center">
+   <img src="{{product.room.url}}" alt="" class="img-fluid img-thumbnail">
+  </div>
+  <div class="col-sm-5 offset-sm-1">
+   <h2>Room Type : {{product.category|capfirst}}</h2>
+   <hr><div class="servicesData">
+    <form action="" method="post">
+      <label for="fname">Hotel Name : </label>
+      <input type="text" id="fname" name="firstname" value="{{product.name}}" readonly>
+  
+      <label for="lname">Contact Number : </label>
+      <input type="text" id="lname" name="mobile" value="{{product.mobile}}" readonly>
+
+      <label for="lname">Hotel Address : </label>
+      <input type="text" id="address" name="address" value="{{product.address}}" readonly>
+
+      <label for="lname">Description about Hotel : </label>
+      <textarea id="address" name="desc" readonly>{{product.description}}</textarea>
+
+      <label for="date">Date of Booking</label><br>
+      <input type="date" id="date" name="date" required>
+
+      <label for="days">Number of Days</label>
+      <input type="text" class="days" name="days" required>
+      {%csrf_token%}
+      <input type="hidden" name="prod_id" value={{product.id}} id="prod-id">
+      <input type="submit" value="Book Now">
+    </form>
+  </div>
+   </ul>
+  </div>
+ </div>
+</div>
+{% endblock main-content %}

@@ -1,0 +1,36 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Furtinures{% endblock title %}
+{% block main-content %} 
+<div class="container my-5">
+    <div class="row">
+        <div class="col-sm-3">
+                <div class="list-group">
+                  <a href="{%url 'furtinure' %}" class="list-group-item list-group-item-action" aria-current="true">All Furtinures</a>
+                  <a href="{% url 'furtinuredata' 'Beds' %}" class="list-group-item list-group-item-action" aria-current="true">Beds</a>
+                  <a href="{% url 'furtinuredata' 'SofaSets' %}" class="list-group-item list-group-item-action">Sofa Sets</a>
+                  <a href="{% url 'furtinuredata' 'ArmChair' %}" class="list-group-item list-group-item-action">Arm Chairs</a>
+                  <a href="{% url 'furtinuredata' 'Tables' %}" class="list-group-item list-group-item-action">Tables</a>
+                  <a href="{% url 'furtinuredata' 'BookCases' %}" class="list-group-item list-group-item-action">Book Cases</a>
+                  <a href="{% url 'furtinuredata' 'Cupboards' %}" class="list-group-item list-group-item-action">Cupboards</a>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div class="row">
+                {% for product in allCycles %}
+                <div class="col-sm-6 text-center mb-4">
+                    <a href="{%url 'product-detail' product.id %}" class="btn">
+                        <div class="item">
+                            <img src="{{product.product_image.url}}" alt=""height="300" width="390" class="">
+                            <div class="fw-bold">{{product.title}}</div>
+                            <div class="fw-bold">Rs.{{product.discounted_price}}
+                            <small class="fw-light text-decoration-line-through">{{product.selling_price}}</small></div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock main-content %}

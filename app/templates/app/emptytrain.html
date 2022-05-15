@@ -1,0 +1,14 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Empty Booking{% endblock title %}
+{% block main-content %}
+<div class="container my-5">
+    <div class="row">
+        <h3 class="text-center">No Booked Train Tickets Found</h3>
+        <div class="text-center">
+            <img src="{% static 'app/images/NOTrain.png'%}" alt="" class="img-fluid img-thumbnail w-25"><br><br>            
+            <a href="/railway/" class="btn btn-danger">Start Booking </a>
+        </div>
+    </div>
+</div>
+{% endblock main-content %}

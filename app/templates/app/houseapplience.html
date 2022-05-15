@@ -1,0 +1,41 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}House Appliances{% endblock title %}
+{% block main-content %} 
+<div class="container my-5">
+    <div class="row">
+        <div class="col-sm-3">
+                <div class="list-group">
+                  <a href="{%url 'applience' %}" class="list-group-item list-group-item-action" aria-current="true">House Appliances</a>
+                  <a href="{% url 'appliencedata' 'Stoves' %}" class="list-group-item list-group-item-action" aria-current="true">Stoves</a>
+                  <a href="{% url 'appliencedata' 'LightBulbs' %}" class="list-group-item list-group-item-action">Light Bulbs</a>
+                  <a href="{% url 'appliencedata' 'Fans' %}" class="list-group-item list-group-item-action">Fans</a>
+                  <a href="{% url 'appliencedata' 'Blenders' %}" class="list-group-item list-group-item-action">Blenders</a>
+                  <a href="{% url 'appliencedata' 'Mixers' %}" class="list-group-item list-group-item-action">Mixers</a>
+                  <a href="{% url 'appliencedata' 'Ovens' %}" class="list-group-item list-group-item-action">Ovens</a>
+                  <a href="{% url 'appliencedata' 'VaccumCleaners' %}" class="list-group-item list-group-item-action">Vaccum Cleaners</a>
+                  <a href="{% url 'appliencedata' 'WashineMachines' %}" class="list-group-item list-group-item-action">Washine Machines</a>
+                  <a href="{% url 'appliencedata' 'RiceCookers' %}" class="list-group-item list-group-item-action">Rice Cookers</a>
+                  <a href="{% url 'appliencedata' 'PressureCookers' %}" class="list-group-item list-group-item-action">Pressure Cookers</a>
+                  <a href="{% url 'appliencedata' 'WaterPurifiers' %}" class="list-group-item list-group-item-action">Water Purifiers</a>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div class="row">
+                {% for product in allCycles %}
+                <div class="col-sm-6 text-center mb-4">
+                    <a href="{%url 'product-detail' product.id %}" class="btn">
+                        <div class="item">
+                            <img src="{{product.product_image.url}}" alt=""height="300" width="340" class="">
+                            <div class="fw-bold">{{product.title}}</div>
+                            <div class="fw-bold">Rs.{{product.discounted_price}}
+                            <small class="fw-light text-decoration-line-through">{{product.selling_price}}</small></div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock main-content %}

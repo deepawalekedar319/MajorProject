@@ -1,0 +1,64 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Hotel Room Bookings{% endblock title %}
+{% block main-content %} 
+<style>
+    h1{
+        text-align: center;
+    }
+    .search{
+        width: 90%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+</style><br>
+    <h1><u>Movie Ticket Booking</u></h1>
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-sm-3">
+                    <div class="list-group">
+                      <a href="{%url 'movies' %}" class="list-group-item list-group-item-action" aria-current="true">All Movies</a>
+                      <a href="{% url 'hoteldata' 'single' %}" class="list-group-item list-group-item-action" aria-current="true">Single Room</a>
+                      <a href="{% url 'hoteldata' 'double' %}" class="list-group-item list-group-item-action">Double Room</a>
+                      <a href="{% url 'hoteldata' 'studio' %}" class="list-group-item list-group-item-action">Studio Room</a>
+                      <a href="{% url 'hoteldata' 'deluex' %}" class="list-group-item list-group-item-action">5 Star Deluex Room</a>
+                      <a href="{% url 'hoteldata' 'family' %}" class="list-group-item list-group-item-action">Family Type Room</a>
+                    </div> <br><br>
+                    <a href="{% url 'service-add-to-cart' %}" class="list-group-item list-group-item-action text-danger fw-bold">Booked Rooms</a>
+                </div>
+                <div class="col-sm-8">
+                    <div class="search-container">
+                        <form action="/action_page.php">
+                          <input type="date" placeholder="Search.." name="search" class="search">
+                          <button type="submit" style="width:50px;height: 50px;border-radius: 10px;border: 1px solid lightgray;"><i class="fa fa-search"></i></button>
+                        </form>
+                      </div>
+                    <div class="row">
+                    {% for product in allCycles %}
+                    <div class="col-sm-6 text-center mb-4" id="hotel">
+                        <br><a href="{%url 'movie-detail' product.id %}" class="btn">
+                            <div class="item">
+                                <img src="{{product.image.url}}" alt=""height="300" width="350" class="">
+                                <table>
+                                    <tr>
+                                        <td >Actor Name : </td>
+                                        <td class="fw-bold text-capitalize"  style="float:left;">{{product.cast}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Movie Name : </td>
+                                        <td class="fw-bold">{{product.name}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{%endblock main-content %}

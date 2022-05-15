@@ -1,0 +1,91 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Bus{% endblock title %}
+{% block main-content %} 
+<section>
+    <div class="container-fluid py-5 px-5 ">
+        <h1 align="center"><u>Bus Ticket Booking</u></h1> <br><br>
+        <form action="" method="POST">
+        {% csrf_token %}
+        <div class="row justify-content-center py-5 bg-light">
+            <div class="col-lg-4">
+                <label for="">From</label>
+                <select class="form-control" name="fromCity" id="roomstatus">
+                    <!--Hotel id and location-->
+                    <option>From location</option>
+                    {% for each_location in fromCity %}                        
+                        <option value="{{each_location}}" >{{each_location}}</option>
+                    {% endfor %}                     
+                </select>
+            </div>
+            <div class="col-lg-4">
+                <label for="">To</label>
+                <select class="form-control" name="toCity" id="roomstatus">
+                    <!--Hotel id and location-->
+                    <option>To location</option>
+                    {% for each_location in toCity %}                        
+                        <option value="{{each_location}}">{{each_location}}</option>
+                    {% endfor %}                     
+                </select>
+            </div>
+            <div class="col-lg-2">
+                <input type="submit" value="Check Availabilty" class="form-control mr-sm-2 btn btn-primary my-3" style="position: relative;top: 7px;">
+            </div>            
+            <div class="col-lg-2">
+                <a href="{%url 'bus-booked'%}"><span class="form-control mr-sm-2 btn btn-danger my-3"
+                    style="position: relative;top: 7px;">Booked Tickets</span></a>
+            </div>
+            {% if trains %}
+            <p class="text-center text-success">Available Buses</p>
+            {% endif %}
+            {%if finalTrains == False%}
+            <p class="text-center text-success">Buses not Available</p>
+            <a href="/bus/" class="text-center text-danger">Search other buses</a>
+            {%endif%}
+            
+        </div>
+        </form>
+
+    </div>
+</section>
+<!--Booking Section ends here-->
+<!--Fetched reults appear here-->
+<div class="container-fluid px-0 mx-aut">
+    {% if trains %}
+       <table class="table">
+           <thead class="o">
+            <th>Name</th>
+            <th>Number</th>
+            <th>Type</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Available on</th>
+            <th>Arrival Time</th>
+            <th>Destination Time</th>
+            <th>Distance</th>
+            <th>price</th>
+            <th>Action</th>
+        </thead>
+        {% for r in trains %}
+            <tr class="">
+            <td>{{ r.trainName }}</td>
+            <td>{{ r.trainNumber }}</td>
+            <td>{{ r.seat_type }}</td>
+            <td>{{ r.fromCity }}</td>
+            <td>{{ r.toCity }}</td>
+            <td>{{ r.availableOn }}</td>
+            <td>{{ r.arrivalTime }}</td>
+            <td>{{ r.destinationTime }}</td>
+            <td>{{ r.distance }} kms</td>
+            <td>Rs. {{ r.amount }}/-</td>            
+            <td><a href="{%url 'bus-detail' r.id %}"><button class="btn btn-warning">Book Now</button></a></td>
+            </tr>
+        {% endfor %}
+        
+       </table> 
+    {% endif %}
+</div>
+<!--Fetched results ends here-->
+
+
+{%endblock main-content %}
